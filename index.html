@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jubilant Octo Robot</title>
+    <style>
+        #octopus {
+            width: 200px;
+            height: 200px;
+            background-color: #f2a500;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px auto;
+            animation: wave 5s infinite;
+        }
+        .tentacle {
+            width: 20px;
+            height: 100px;
+            background-color: #3b83bd;
+            position: absolute;
+            bottom: 0;
+            animation: wiggle 2s infinite;
+        }
+        @keyframes wave {
+            0%, 100% {transform: rotate(0deg);}
+            50% {transform: rotate(10deg);}
+        }
+        @keyframes wiggle {
+            0%, 100% {transform: rotate(0deg);}
+            50% {transform: rotate(5deg);}
+        }
+    </style>
+</head>
+<body>
+
+<div id="octopus">
+    <div class="tentacle" style="left: 10px;"></div>
+    <div class="tentacle" style="left: 50px;"></div>
+    <!-- More tentacles here -->
+</div>
+
+<script>
+    // Basic Speech API Setup
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.onresult = function(event) {
+        const command = event.results[0][0].transcript.toLowerCase();
+        if (command.includes('hello')) {
+            speak("Hello there! How can I help you today?");
+        }
+    };
+
+    function speak(text) {
+        const synth = window.speechSynthesis;
+        const utterThis = new SpeechSynthesisUtterance(text);
+        synth.speak(utterThis);
+    }
+
+    recognition.start();
+</script>
+
+</body>
+</html>
